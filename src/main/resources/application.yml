@@ -19,9 +19,8 @@ spring:
 
 security:
   jwt:
-    apiKey: theKey
+    apiKey: 08942409d601fc0398683ffe60cf683f685d547c685ee12aecf602a99338cd5e
     expiration: 3600000 # 1 hour in milliseconds
-
 
 config:
   user:

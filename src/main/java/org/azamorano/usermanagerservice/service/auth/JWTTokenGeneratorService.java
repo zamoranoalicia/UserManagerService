@@ -67,6 +67,16 @@ public class JWTTokenGeneratorService implements AuthenticationTokenGeneratorSer
         return null;
     }
 
+    @Override
+    public Date getExpirationDate(String token) {
+        return null;
+    }
+
+    @Override
+    public Boolean isTokenExpired(String token) {
+        return null;
+    }
+
     private SecretKey getSignKey(String apiKey) {
         byte[] keyBytes = Decoders.BASE64.decode(apiKey);
         return Keys.hmacShaKeyFor(keyBytes);
