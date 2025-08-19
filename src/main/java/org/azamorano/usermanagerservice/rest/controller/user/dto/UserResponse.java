@@ -8,7 +8,6 @@ import org.azamorano.usermanagerservice.entity.User;
 import org.springframework.boot.jackson.JsonComponent;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.UUID;
 
 @Builder
@@ -31,7 +30,6 @@ public class UserResponse {
     Boolean isActive;
 
     public static UserResponse of(User user) {
-
         return UserResponse
                 .builder()
                 .id(user.getUserId())
