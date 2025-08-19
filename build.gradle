@@ -37,6 +37,14 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    implementation "io.jsonwebtoken:${jjwtApiVersion}"
+    runtimeOnly "io.jsonwebtoken:${jjwtImpVersion}"
+    runtimeOnly "io.jsonwebtoken:${jjwtJacksonVersion}"
+
+    implementation "io.swagger.core.v3:swagger-core:${swaggerCoreVersion}"
+    implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:${openApiDocs}"
+
 }
 
 tasks.named('test') {
