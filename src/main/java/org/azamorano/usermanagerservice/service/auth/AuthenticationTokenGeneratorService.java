@@ -13,4 +13,6 @@ public interface AuthenticationTokenGeneratorService {
     Date getExpirationDate(String token);
 
     Boolean isTokenExpired(String token);
+
+    String extractUserName(String token);
 }

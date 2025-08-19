@@ -4,8 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.azamorano.usermanagerservice.entity.User;
 import org.springframework.boot.jackson.JsonComponent;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.UUID;
 
@@ -18,17 +20,26 @@ public class UserResponse {
 
     UUID id;
 
-    Date createdAt;
+    LocalDateTime createdAt;
 
-    Date modifiedAt;
+    LocalDateTime modifiedAt;
 
-    Date lastLoginAt;
+    LocalDateTime lastLoginAt;
 
     String accessToken;
 
     Boolean isActive;
 
-    public static UserResponse of(UserRequest userRequest) {
-        return UserResponse.builder().build();
+    public static UserResponse of(User user) {
+
+        return UserResponse
+                .builder()
+                .id(user.getUserId())
+                .createdAt(user.getCreatedAt())
+                .modifiedAt(user.getUpdatedAt())
+                .lastLoginAt(user.getLastLoginAt())
+                .accessToken(user.getLastUsedToken())
+                .isActive(user.getActiveUser())
+                .build();
     }
 }

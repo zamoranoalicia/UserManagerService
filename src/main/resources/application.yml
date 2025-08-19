@@ -2,12 +2,15 @@ spring:
   application:
     name: "UserManagerService"
     datasource:
-    url: jdbc:h2:mem:usersdb
-    username: sa
-    password: password
-    driverClassName: org.h2.Driver
+      url: jdbc:h2:mem:usersdb
+      username: sa
+      password:
+      driver-class-name: org.h2.Driver
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
   h2:
     console:
       enabled: true
@@ -16,6 +19,10 @@ spring:
       path: /api-docs
     swagger-ui:
       operationsSorter: method
+  security:
+    user:
+      name: admin
+      password: password
 
 security:
   jwt:

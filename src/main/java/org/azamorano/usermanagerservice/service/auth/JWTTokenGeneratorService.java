@@ -1,5 +1,6 @@
 package org.azamorano.usermanagerservice.service.auth;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import javax.crypto.SecretKey;
 import java.util.Date;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static org.hibernate.internal.util.collections.CollectionHelper.listOf;
@@ -53,7 +55,7 @@ public class JWTTokenGeneratorService implements AuthenticationTokenGeneratorSer
                 AuthClaim
                         .builder()
                         .claimName(ID)
-                        .claimValue(user.getId().toString())
+                        .claimValue(user.getUserId().toString())
                         .build(),
                 AuthClaim
                         .builder()
@@ -76,6 +78,22 @@ public class JWTTokenGeneratorService implements AuthenticationTokenGeneratorSer
     public Boolean isTokenExpired(String token) {
         return null;
     }
+
+    @Override
+    public String extractUserName(String token) {
+        return extractClaim(token, Claims::getSubject);
+    }
+
+    public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
+        final Claims claims = extractAllClaims(token);
+        return claimsResolver.apply(claims);
+    }
+
+    private Claims extractAllClaims(String token) {
+        return Jwts.parser()
+                .setSigningKey(getSignKey(apiKey)).build().parseSignedClaims(token).getBody();
+    }
+
 
     private SecretKey getSignKey(String apiKey) {
         byte[] keyBytes = Decoders.BASE64.decode(apiKey);

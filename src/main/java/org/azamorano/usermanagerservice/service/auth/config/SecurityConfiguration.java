@@ -18,7 +18,9 @@ public class SecurityConfiguration {
     private static final String NOT_FOUND_USER = "User not found";
     private final UserRepository userRepository;
 
+
     public SecurityConfiguration(UserRepository userRepository) {
+
         this.userRepository = userRepository;
     }
 
@@ -27,6 +29,7 @@ public class SecurityConfiguration {
         return username -> userRepository.findByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException(NOT_FOUND_USER));
     }
+
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();

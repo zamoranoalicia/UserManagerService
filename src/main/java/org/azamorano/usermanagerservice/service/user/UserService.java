@@ -16,28 +16,23 @@ public class UserService {
     private static final String ERROR_WHILE_CREATING_USER = "There was an error while creating %s user. Please " +
             "contact IT Services";
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+
+    public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
     }
 
-    public User createUser(UserRequest userRequest) {
+    public User createUser(User user) {
         try {
-            Optional<User> existingUser = userRepository.findByEmail(userRequest.getEmail());
+            Optional<User> existingUser = userRepository.findByEmail(user.getEmail());
 
             if (existingUser.isPresent()) {
-                throw new UserCreationException(String.format(USER_ALREADY_EXIST, userRequest.getEmail()));
+                throw new UserCreationException(String.format(USER_ALREADY_EXIST, user.getEmail()));
             }
 
-            User createdUser = User.of(userRequest)
-                    .toBuilder()
-                    .password(passwordEncoder.encode(userRequest.getPassword()))
-                    .build();
-            return userRepository.save(createdUser);
+            return userRepository.save(user);
         } catch (Exception exception) {
-            throw new UserCreationException(String.format(ERROR_WHILE_CREATING_USER, userRequest.getEmail()));
+            throw new UserCreationException(String.format(ERROR_WHILE_CREATING_USER, user.getEmail()));
         }
     }
 }
