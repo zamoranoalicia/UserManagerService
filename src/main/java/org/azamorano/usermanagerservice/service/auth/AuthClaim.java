@@ -1,4 +1,4 @@
-package org.azamorano.usermanagerservice;
+package org.azamorano.usermanagerservice.service.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

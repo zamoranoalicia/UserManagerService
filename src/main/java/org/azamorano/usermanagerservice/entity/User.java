@@ -47,12 +47,22 @@ public class User implements UserDetails{
     List<Phone> phones;
 
     @CreationTimestamp
-    @Column(updatable = false, name = "created_at")
+    @Column(updatable = false, name = "created_dttm")
     private Date createdAt;
 
     @UpdateTimestamp
-    @Column(name = "updated_at")
+    @Column(name = "updated_dttm")
     private Date updatedAt;
+
+    @Column(name = "last_login_dttm")
+    private Date lastLoginAt;
+
+    @Column(name = "last_used_token")
+    @NotNull
+    private String lastUsedToken;
+
+    @Column
+    private Boolean activeUser;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -22,3 +22,11 @@ security:
     apiKey: theKey
     expiration: 3600000 # 1 hour in milliseconds
 
+
+config:
+  user:
+    domain : 'dominio.cl'
+  password:
+    regex: '^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8, }$'
+    errorMessage: 'Password must contain at least 8 characters'
+

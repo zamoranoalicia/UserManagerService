@@ -3,7 +3,6 @@ package org.azamorano.usermanagerservice.service.auth;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import org.azamorano.usermanagerservice.AuthClaim;
 import org.azamorano.usermanagerservice.entity.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
