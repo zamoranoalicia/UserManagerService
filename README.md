@@ -45,8 +45,8 @@ Follow these steps to set up and run the project locally:
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/zamoranoalicia/user-manager-service.git
-cd user-'''manager-service
+git clone https://github.com/zamoranoalicia/UserManagerService.git
+cd UserManagerService
 ```
 
 ### 2. Build the Project
@@ -65,8 +65,7 @@ The application will start on http://localhost:8080.
 
 
 ### 4. Test the Endpoints
-   You can use tools like Postman or cURL to test the API endpoints. Below are the available endpoints:  
-   Endpoints:
+   You can use tools like Postman or cURL to test the API endpoints. Below are the available endpoints:
 
 #### API Endpoints
 
@@ -74,37 +73,37 @@ The application will start on http://localhost:8080.
 |-------------|--------------|--------------------------|--------------------------|
 | **POST**    | `/auth/signup` | Register a new user       | No                       |
 | **POST**    | `/auth/login`  | Login and get JWT token   | No                       |
-| **GET**     | `/secured`     | Example secured endpoint  | Yes                      |
 
-### 4. Configuration
-#### 4.1 Application Properties
+
+### 5. Configuration
+#### 5.1 Application Properties
  * The application uses the default application.properties file located in src/main/resources.
 You can modify it to configure database settings, JWT secret, etc.
  * Additionally  it is possible to define properties for the _domain_ validation, _password_ regex validation, and the error message to be shown
  The default configuration is the following
 
 ```yaml
-  config:
-    user:
-      domain : 'dominio.cl'
-    password:
-      regex: ^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$
-      errorMessage: |
-            At least one lowercase letter is required.
-            At least one uppercase letter is required.
-            At least one digit is required.
-            At least one special character (@$!%*?&) is required.
-            Minimum length of 8 characters is required.
+config:
+user:
+  domain : 'dominio.cl'
+password:
+  regex: ^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$
+  errorMessage: |
+        At least one lowercase letter is required.
+        At least one uppercase letter is required.
+        At least one digit is required.
+        At least one special character (@$!%*?&) is required.
+        Minimum length of 8 characters is required.
 ```
 
-#### 4.2 JWT Configuration
+#### 5.2 JWT Configuration
 The JWT secret and expiration time can be configured in the application.properties file:
 
-```bash
+```yaml
 jwt.apiKey=your-secret-key-this-should-be-a-base64_encode
 jwt.expiration=3600000
 ```
-### 5. Running Test
+### 6. Running Test
 
 To run the unit tests, execute the following command
 
@@ -112,12 +111,14 @@ To run the unit tests, execute the following command
 ./gradlew test
 ```
 
-### 6. Swagger
+### 7. Swagger
 The API is configured to use Swagger UI, and API Docs
 
 * Local Swagger URL: http://localhost:8080/swagger-ui/index.html#/
 * Local API docs URL: http://localhost:8080/v3/api-docs
-### 6. Project Structure
+### 8. Project Structure
+To refer to the project digram please visit:
+* https://lucid.app/lucidchart/5b7331cd-6ea0-4ebd-83ba-6af09be81a21/edit?viewport_loc=3533%2C-431%2C3326%2C1672%2C0_0&invitationId=inv_0d7bf944-101f-430d-95df-8dc8eca1fa8b
 
 * **src/main/java**: Contains the main application code.
     * config: Configuration files 
