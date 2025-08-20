@@ -113,7 +113,7 @@ To run the unit tests, execute the following command
 ```
 
 ### 6. Swagger
-The API is configured to use SWAGGER UI, and also API Docs
+The API is configured to use Swagger UI, and API Docs
 
 * Local Swagger URL: http://localhost:8080/swagger-ui/index.html#/
 * Local API docs URL: http://localhost:8080/v3/api-docs
