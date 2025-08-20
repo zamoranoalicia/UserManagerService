@@ -1,6 +1,7 @@
 package org.azamorano.usermanagerservice.rest.controller.user.dto;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,5 +21,7 @@ public class LoginRequest {
     @ValidEmail
     String username;
 
+    @NotNull
+    @NotEmpty
     String password;
 }

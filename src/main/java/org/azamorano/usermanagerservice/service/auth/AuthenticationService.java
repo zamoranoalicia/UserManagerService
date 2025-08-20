@@ -13,9 +13,12 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
+import static java.util.Optional.ofNullable;
+
 @Service
 @AllArgsConstructor
 public class AuthenticationService {
+    private static final String PLEASE_PROVIDE_USER_AND_PASSWORD = "Please provide user and password";
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationTokenGeneratorService authenticationTokenGeneratorService;
@@ -35,10 +38,15 @@ public class AuthenticationService {
     }
 
     public String login(LoginRequest request) {
-        User user = User.of(request);
+        if (ofNullable(request.getUsername()).isEmpty() || ofNullable(request.getPassword()).isEmpty()) {
+            throw new IllegalArgumentException(PLEASE_PROVIDE_USER_AND_PASSWORD);
+        }
+
+        User user = userService.searchUserByUserName(request.getUsername());
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword())
         );
+
         return authenticationTokenGeneratorService.generateToken(user);
     }
 }

@@ -29,6 +29,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 import static java.util.Collections.emptyList;
+import static java.util.Optional.ofNullable;
 
 @Builder(toBuilder = true)
 @Entity
@@ -85,6 +86,9 @@ public class User implements UserDetails{
     }
 
     private static List<Phone> getPhoneEntities(List<PhoneRequest> phones) {
+        if (ofNullable(phones).isEmpty()) {
+            return emptyList();
+        }
         return phones.stream().map(Phone::of).collect(Collectors.toList());
     }
 

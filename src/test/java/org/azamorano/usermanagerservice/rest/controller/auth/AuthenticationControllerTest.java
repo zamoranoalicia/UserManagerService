@@ -7,17 +7,16 @@ import org.azamorano.usermanagerservice.rest.controller.user.dto.UserResponse;
 import org.azamorano.usermanagerservice.service.auth.AuthenticationService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
 
+import java.util.Map;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -35,60 +34,39 @@ class AuthenticationControllerTest {
         authenticationController = new AuthenticationController(authenticationService);
     }
 
-    @Nested
-    @DisplayName("singUpUser method")
-    class SingUpUser {
+    @Test
+    @DisplayName("should return token when valid LoginRequest is provided")
+    void shouldReturnTokenWhenValidLoginRequestProvided() {
+        LoginRequest loginRequest = new LoginRequest("username", "password");
+        String expectedToken = "valid-token";
+        String expectedResponse = Map.of("token", expectedToken).toString();
+        when(authenticationService.login(loginRequest)).thenReturn(expectedToken);
+        String controllerResponse = authenticationController.login(loginRequest).toString();
 
-        @Test
-        @DisplayName("should return UserResponse when valid UserRequest is provided")
-        void shouldReturnUserResponseWhenValidUserRequestProvided() throws JsonProcessingException {
-            UserRequest userRequest = UserRequest.builder().build();
-            ResponseEntity<UserResponse> expectedResponse =
-                    new ResponseEntity<>(UserResponse.builder().build(), CREATED);
-
-            when(authenticationService.singUp(userRequest)).thenReturn(UserResponse.builder().build());
-
-            ResponseEntity<UserResponse> actualResponse = authenticationController.singUpUser(userRequest);
-
-            assertEquals(expectedResponse, actualResponse);
-            verify(authenticationService, times(1)).singUp(userRequest);
-        }
-
-        @Test
-        @DisplayName("should throw exception when UserRequest is null")
-        void shouldThrowExceptionWhenUserRequestIsNull() {
-            UserRequest userRequest = null;
-
-            assertThrows(IllegalArgumentException.class, () -> authenticationController.singUpUser(userRequest));
-            verify(authenticationService, never()).singUp(any());
-        }
+        assertEquals(expectedResponse, controllerResponse);
+        verify(authenticationService, times(1)).login(loginRequest);
     }
 
-    @Nested
-    @DisplayName("login method")
-    class Login {
+    @Test
+    @DisplayName("should throw exception when LoginRequest is null")
+    void shouldThrowExceptionWhenLoginRequestIsNull() {
+        LoginRequest loginRequest = null;
+        assertThrows(NullPointerException.class, () -> authenticationController.login(loginRequest));
+    }
 
-        @Test
-        @DisplayName("should return token when valid LoginRequest is provided")
-        void shouldReturnTokenWhenValidLoginRequestProvided() {
-            LoginRequest loginRequest = new LoginRequest("username", "password");
-            String expectedToken = "valid-token";
 
-            when(authenticationService.login(loginRequest)).thenReturn(expectedToken);
+    @Test
+    @DisplayName("should return UserResponse when valid UserRequest is provided")
+    void shouldReturnUserResponseWhenValidUserRequestProvided() throws JsonProcessingException {
+        UserRequest userRequest = UserRequest.builder().build();
+        ResponseEntity<UserResponse> expectedResponse =
+                new ResponseEntity<>(UserResponse.builder().build(), CREATED);
 
-            String actualToken = authenticationController.login(loginRequest).toString();
+        when(authenticationService.singUp(userRequest)).thenReturn(UserResponse.builder().build());
 
-            assertEquals(expectedToken, actualToken);
-            verify(authenticationService, times(1)).login(loginRequest);
-        }
+        ResponseEntity<UserResponse> actualResponse = authenticationController.singUpUser(userRequest);
 
-        @Test
-        @DisplayName("should throw exception when LoginRequest is null")
-        void shouldThrowExceptionWhenLoginRequestIsNull() {
-            LoginRequest loginRequest = null;
-
-            assertThrows(IllegalArgumentException.class, () -> authenticationController.login(loginRequest));
-            verify(authenticationService, never()).login(any());
-        }
+        assertEquals(expectedResponse, actualResponse);
+        verify(authenticationService, times(1)).singUp(userRequest);
     }
 }

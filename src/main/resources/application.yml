@@ -35,9 +35,8 @@ config:
   password:
     regex: ^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$
     errorMessage: | 
-              At least one lowercase letter.
-              At least one uppercase letter.
-              At least one digit.
-              At least one special character (@$!%*?&).
-              Minimum length of 8 characters
-
+              At least one lowercase letter is required.
+              At least one uppercase letter is required.
+              At least one digit is required.
+              At least one special character (@$!%*?&) is required.
+              Minimum length of 8 characters is required.
