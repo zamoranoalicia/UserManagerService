@@ -46,6 +46,18 @@ public class JWTTokenGeneratorService implements AuthenticationTokenGeneratorSer
                 .compact();
     }
 
+    @Override
+    public String generateToken(String email) {
+        Date now = new Date(System.currentTimeMillis());
+        return Jwts
+                .builder()
+                .subject(email)
+                .issuedAt(now)
+                .expiration(calculateExpirationDate(System.currentTimeMillis(), expirationTime))
+                .signWith(getSignKey(apiKey))
+                .compact();
+    }
+
     private Date calculateExpirationDate(long currentTime, Long expirationTime) {
         return new Date(currentTime + expirationTime);
     }

@@ -13,7 +13,7 @@ spring:
     show-sql: true
   h2:
     console:
-      enabled: true
+      enabled: false
   springdoc:
     api-docs:
       path: /api-docs

@@ -7,6 +7,7 @@ import java.util.Date;
 
 public interface AuthenticationTokenGeneratorService {
     String generateToken(User user);
+    String generateToken(String email);
 
     Boolean validateToken(String token, UserDetails userDetails);
 
