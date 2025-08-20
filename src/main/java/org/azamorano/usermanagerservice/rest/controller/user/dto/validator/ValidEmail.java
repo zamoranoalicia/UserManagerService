@@ -11,10 +11,10 @@ import java.lang.annotation.Target;
 
 @Documented
 @Constraint(validatedBy = EmailDomainValidator.class)
-@Target({ ElementType.FIELD, ElementType.PARAMETER })
+@Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER, ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Email {
-    String message() default "Invalid Email, please verify and try again";
+public @interface ValidEmail {
+    String message() default "Invalid email, please verify and try again.\\n";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }

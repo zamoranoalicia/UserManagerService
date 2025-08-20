@@ -1,7 +1,5 @@
 package org.azamorano.usermanagerservice.rest.controller.user.dto;
 
-import jakarta.annotation.Nullable;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -9,7 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.Value;
-import org.azamorano.usermanagerservice.rest.controller.user.dto.validator.Email;
+import org.azamorano.usermanagerservice.rest.controller.user.dto.validator.ValidEmail;
 import org.azamorano.usermanagerservice.rest.controller.user.dto.validator.Password;
 
 import java.util.List;
@@ -18,23 +16,21 @@ import java.util.List;
 @Value
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor(force = true)
 public class UserRequest {
 
     @NotNull
-    @NotEmpty
+    @NotEmpty(message = "name value must not be empty")
     String name;
 
     @NotNull
-    @NotEmpty
-    @Email
+    @NotEmpty(message = "email value must not be empty")
+    @ValidEmail
     String email;
 
     @NotNull
-    @NotEmpty
+    @NotEmpty(message = "password value must not be empty")
     @Password
     String password;
-
 
     List<PhoneRequest> phones;
 }

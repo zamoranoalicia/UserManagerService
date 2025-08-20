@@ -33,6 +33,11 @@ config:
   user:
     domain : 'dominio.cl'
   password:
-    regex: '^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8, }$'
-    errorMessage: 'Password must contain at least 8 characters'
+    regex: ^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$
+    errorMessage: | 
+              At least one lowercase letter.
+              At least one uppercase letter.
+              At least one digit.
+              At least one special character (@$!%*?&).
+              Minimum length of 8 characters
 

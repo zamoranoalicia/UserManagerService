@@ -22,7 +22,6 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
     public UserResponse singUp(UserRequest userRequest) {
-
         String generatedToken = authenticationTokenGeneratorService.generateToken(userRequest.getEmail());
         User user = User.of(userRequest)
                 .toBuilder()

@@ -20,7 +20,7 @@ public class PasswordValidator implements ConstraintValidator<Password, String> 
     }
     @Override
     public boolean isValid(String password, ConstraintValidatorContext constraintValidatorContext) {
-        if (!Optional.ofNullable(password).isPresent() || passwordPattern.matcher(password).matches()) {
+        if (!passwordPattern.matcher(password).matches()) {
             constraintValidatorContext.disableDefaultConstraintViolation();
             constraintValidatorContext.buildConstraintViolationWithTemplate(
                     INVALID_PASSWORD.concat(errorMessage)).addConstraintViolation();

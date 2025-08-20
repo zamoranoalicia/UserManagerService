@@ -14,7 +14,7 @@ import java.lang.annotation.Target;
 @Target({ ElementType.FIELD, ElementType.PARAMETER })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Password {
-    String message() default "Invalid password please provide a valid";
+    String message() default "Invalid password ";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }

@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.ResponseEntity;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -20,6 +21,7 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.http.HttpStatus.CREATED;
 
 @ExtendWith(MockitoExtension.class)
 class AuthenticationControllerTest {
@@ -41,11 +43,12 @@ class AuthenticationControllerTest {
         @DisplayName("should return UserResponse when valid UserRequest is provided")
         void shouldReturnUserResponseWhenValidUserRequestProvided() throws JsonProcessingException {
             UserRequest userRequest = UserRequest.builder().build();
-            UserResponse expectedResponse = UserResponse.builder().build();
+            ResponseEntity<UserResponse> expectedResponse =
+                    new ResponseEntity<>(UserResponse.builder().build(), CREATED);
 
-            when(authenticationService.singUp(userRequest)).thenReturn(expectedResponse);
+            when(authenticationService.singUp(userRequest)).thenReturn(UserResponse.builder().build());
 
-            UserResponse actualResponse = authenticationController.singUpUser(userRequest);
+            ResponseEntity<UserResponse> actualResponse = authenticationController.singUpUser(userRequest);
 
             assertEquals(expectedResponse, actualResponse);
             verify(authenticationService, times(1)).singUp(userRequest);
